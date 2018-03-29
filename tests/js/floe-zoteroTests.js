@@ -1,4 +1,4 @@
-/* global fluid, jqUnit, projectTemplate */
+/* global fluid, floe, jqUnit */
 
 (function ($, fluid) {
 
@@ -6,9 +6,9 @@
 
     // Basic non-IoC synchronous test
     jqUnit.test("Test message content", function () {
-        var projectComponent = floe.zotero();
+        floe.zotero();
         jqUnit.expect(0);
-        
+
         // jqUnit.assertEquals("Test message has expected content", "Hello, world", projectComponent.model.message);
     });
 

@@ -1,4 +1,4 @@
-/* global fluid */
+/* global fluid, floe */
 
 (function ($, fluid) {
 
@@ -33,8 +33,7 @@
                             args: ["{zoteroItemsMetadata}.totalResults", "{zotero}.options.zoteroConfig"]
                         }
                     }
-                },
-
+                }
             },
             zoteroItemsParser: {
                 type: "floe.zotero.zoteroItemsParser",
@@ -70,74 +69,73 @@
 
     });
 
-// Figures out if we need multiple resources and loads them
-// 50 at a time
-floe.zotero.generateLoaderGrade = function (totalResults, zoteroConfig) {
 
-    var gradeName = "floe.zotero.loaderGrade-" + fluid.allocateGuid();
+    floe.zotero.generateLoaderGrade = function (totalResults, zoteroConfig) {
 
-    var limit = zoteroConfig.limit;
+        var gradeName = "floe.zotero.loaderGrade-" + fluid.allocateGuid();
 
-    var totalPages = Math.ceil(totalResults / limit);
+        var limit = zoteroConfig.limit;
 
-    var resourceDefs = {
+        var totalPages = Math.ceil(totalResults / limit);
+
+        var resourceDefs = {
+        };
+
+        for (var i = 1; i <= totalPages; i++) {
+            var start = (i * limit) - limit;
+            var key = "zoteroItems-" + i;
+            var url = fluid.stringTemplate(zoteroConfig.baseUrl + "?format=json&sort=title&limit=%limit&start=%start", {start: start, limit: limit});
+            resourceDefs[key] = url;
+        }
+
+        fluid.defaults(gradeName, {
+            gradeName: ["fluid.component"],
+            resources: resourceDefs
+        });
+
+        return gradeName;
     };
 
-    for(var i=1; i<=totalPages; i++) {
-        var start = (i * limit) - limit;
-        var key = "zoteroItems-" + i;
-        var url = fluid.stringTemplate(zoteroConfig.baseUrl + "?format=json&sort=title&limit=%limit&start=%start", {start: start, limit: limit});
-        resourceDefs[key] = url;
-    }
-
-    fluid.defaults(gradeName, {
-        gradeName: ["fluid.component"],
-        resources: resourceDefs
+    fluid.defaults("floe.zotero.zoteroItemsMetadata", {
+        gradeNames: ["fluid.component"],
+        members: {
+            totalResults: null
+        },
+        events: {
+            totalResultsRetrieved: null
+        }
     });
 
-    return gradeName;
-};
+    floe.zotero.zoteroItemsMetadata.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
+        var url = zoteroConfig.baseUrl + "?limit=1&format=json&sort=title";
 
-fluid.defaults("floe.zotero.zoteroItemsMetadata", {
-    gradeNames: ["fluid.component"],
-    members: {
-        totalResults: null
-    },
-    events: {
-        totalResultsRetrieved: null
-    }
-});
+        $.ajax({
+            url: url
+        })
+        .done(function (data, textStatus, jqXHR) {
+            var totalResults = jqXHR.getResponseHeader("Total-Results");
+            zoteroItemsMetadata.totalResults = totalResults;
+            zoteroItemsMetadata.events.totalResultsRetrieved.fire();
+        });
+    };
 
-floe.zotero.zoteroItemsMetadata.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
-    var url = zoteroConfig.baseUrl + "?limit=1&format=json&sort=title";
-
-    $.ajax({
-        url: url
-    })
-    .done(function (data, textStatus, jqXHR) {
-        var totalResults = jqXHR.getResponseHeader("Total-Results");
-        zoteroItemsMetadata.totalResults = totalResults;
-        zoteroItemsMetadata.events.totalResultsRetrieved.fire();
+    fluid.defaults("floe.zotero.zoteroItemsParser", {
+        gradeNames: ["fluid.component"]
     });
-};
 
-fluid.defaults("floe.zotero.zoteroItemsParser", {
-    gradeNames: ["fluid.component"]
-});
+    floe.zotero.zoteroItemsParser.parse = function (zoteroItemResources, holderApplier, holderEndpoint) {
+        var zoteroItems = [];
 
-floe.zotero.zoteroItemsParser.parse = function (zoteroItemResources, holderApplier, holderEndpoint) {
-    var zoteroItems = [];
-
-    fluid.each(zoteroItemResources, function (zoteroItemResource) {
+        fluid.each(zoteroItemResources, function (zoteroItemResource) {
 
             var parsedResource = JSON.parse(zoteroItemResource.resourceText);
 
             zoteroItems = zoteroItems.concat(parsedResource);
-    });
+        });
 
-    holderApplier.change(holderEndpoint, zoteroItems);
+        holderApplier.change(holderEndpoint, zoteroItems);
 
-};
+    };
 
 })(jQuery, fluid);
 
