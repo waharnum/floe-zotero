@@ -6,7 +6,7 @@
 
     // Basic non-IoC synchronous test
     jqUnit.test("Test message content", function () {
-        floe.zotero();
+        floe.zoteroItems();
         jqUnit.expect(0);
 
         // jqUnit.assertEquals("Test message has expected content", "Hello, world", projectComponent.model.message);

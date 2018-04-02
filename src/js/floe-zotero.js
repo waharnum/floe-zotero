@@ -4,7 +4,7 @@
 
     "use strict";
 
-    fluid.defaults("floe.zotero", {
+    fluid.defaults("floe.zoteroItems", {
         gradeNames: ["fluid.component"],
         zoteroConfig: {
             baseUrl: "https://api.zotero.org/groups/2086760/items/",
@@ -17,7 +17,7 @@
                     listeners: {
                         "onCreate.retrieveMetadata": {
                             funcName: "floe.zotero.zoteroItemsMetadata.retrieveMetadata",
-                            args: ["{zotero}.options.zoteroConfig", "{that}"]
+                            args: ["{zoteroItems}.options.zoteroConfig", "{that}"]
                         }
                     }
                 }
@@ -29,8 +29,8 @@
                     gradeNames: ["{that}.generateLoaderGrade"],
                     invokers: {
                         generateLoaderGrade: {
-                            funcName: "floe.zotero.generateLoaderGrade",
-                            args: ["{zoteroItemsMetadata}.totalResults", "{zotero}.options.zoteroConfig"]
+                            funcName: "floe.zoteroItems.generateLoaderGrade",
+                            args: ["{zoteroItemsMetadata}.totalResults", "{zoteroItems}.options.zoteroConfig"]
                         }
                     }
                 }
@@ -51,7 +51,8 @@
                 type: "fluid.modelComponent",
                 options: {
                     model: {
-                        zoteroItems: null
+                        zoteroItems: null,
+                        zoteroItemNotes: null
                     },
                     modelListeners: {
                         "zoteroItems": {
@@ -70,7 +71,7 @@
     });
 
 
-    floe.zotero.generateLoaderGrade = function (totalResults, zoteroConfig) {
+    floe.zoteroItems.generateLoaderGrade = function (totalResults, zoteroConfig) {
 
         var gradeName = "floe.zotero.loaderGrade-" + fluid.allocateGuid();
 
@@ -133,10 +134,22 @@
             zoteroItems = zoteroItems.concat(parsedResource);
         });
 
+        var zoteroItemNotes = [];
+
+        // Remove the note items to a separate array
+        fluid.remove_if(zoteroItems, function (zoteroItem) {
+                if(zoteroItem.data.itemType === "note") {
+                    return true;
+                }
+        }, zoteroItemNotes);
+
+        // Construct a keyed notes object
+        
+
+        console.log(zoteroItemNotes);
+
         holderApplier.change(holderEndpoint, zoteroItems);
 
     };
 
 })(jQuery, fluid);
-
-// TODO: deal with large item sizes
