@@ -4,9 +4,48 @@
 
     "use strict";
 
+    // Create the test grade
+    // 1. Override the metadata invoker
+    // 2. Retrieve the sample JSON file
+
+    fluid.defaults("floe.zoteroItemsTest", {
+        gradeNames: ["floe.zoteroItems"],
+        zoteroConfig: {
+            baseUrl: "../json/items.json",
+        },
+        components: {            
+            zoteroItemsMetadata: {
+                options: {
+                    invokers: {
+                        retrieveMetadata: {
+                            funcName: "floe.zoteroItemsTest.retrieveMetadata",
+                            args: ["{zoteroItems}.options.zoteroConfig", "{that}"]
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Sets total results from the number of items in the file, for
+    // testing purposes
+    floe.zoteroItemsTest.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
+        var url = zoteroConfig.baseUrl + "?limit=1&format=json&sort=title";
+
+        $.ajax({
+            url: url
+        })
+        .done(function (data, textStatus, jqXHR) {
+            var itemsAsArray = fluid.hashToArray(data);
+            var totalResults = itemsAsArray.length;
+            zoteroItemsMetadata.totalResults = totalResults;
+            zoteroItemsMetadata.events.totalResultsRetrieved.fire();
+        });
+    };
+
     // Basic non-IoC synchronous test
     jqUnit.test("Test message content", function () {
-        floe.zoteroItems();
+        floe.zoteroItemsTest();
         jqUnit.expect(0);
 
         // jqUnit.assertEquals("Test message has expected content", "Hello, world", projectComponent.model.message);

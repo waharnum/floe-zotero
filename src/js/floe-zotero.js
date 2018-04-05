@@ -16,8 +16,7 @@
                 options: {
                     listeners: {
                         "onCreate.retrieveMetadata": {
-                            funcName: "floe.zotero.zoteroItemsMetadata.retrieveMetadata",
-                            args: ["{zoteroItems}.options.zoteroConfig", "{that}"]
+                            func: "{that}.retrieveMetadata",
                         }
                     }
                 }
@@ -104,6 +103,12 @@
         },
         events: {
             totalResultsRetrieved: null
+        },
+        invokers: {
+            retrieveMetadata: {
+                funcName: "floe.zotero.zoteroItemsMetadata.retrieveMetadata",
+                args: ["{zoteroItems}.options.zoteroConfig", "{that}"]
+            }
         }
     });
 
@@ -144,7 +149,7 @@
         }, zoteroItemNotes);
 
         // Construct a keyed notes object
-        
+
 
         console.log(zoteroItemNotes);
 
