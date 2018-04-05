@@ -4,7 +4,7 @@
 
     "use strict";
 
-    fluid.defaults("floe.zoteroItems", {
+    fluid.defaults("floe.zotero.zoteroItems", {
         gradeNames: ["fluid.component"],
         zoteroConfig: {
             baseUrl: "https://api.zotero.org/groups/2086760/items/",
@@ -28,7 +28,7 @@
                     gradeNames: ["{that}.generateLoaderGrade"],
                     invokers: {
                         generateLoaderGrade: {
-                            funcName: "floe.zoteroItems.generateLoaderGrade",
+                            funcName: "floe.zotero.zoteroItems.generateLoaderGrade",
                             args: ["{zoteroItemsMetadata}.totalResults", "{zoteroItems}.options.zoteroConfig"]
                         }
                     }
@@ -70,7 +70,7 @@
     });
 
 
-    floe.zoteroItems.generateLoaderGrade = function (totalResults, zoteroConfig) {
+    floe.zotero.zoteroItems.generateLoaderGrade = function (totalResults, zoteroConfig) {
 
         var gradeName = "floe.zotero.loaderGrade-" + fluid.allocateGuid();
 
@@ -89,7 +89,7 @@
         }
 
         fluid.defaults(gradeName, {
-            gradeName: ["fluid.component"],
+            gradeNames: ["fluid.component"],
             resources: resourceDefs
         });
 

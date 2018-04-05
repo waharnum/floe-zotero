@@ -8,17 +8,17 @@
     // 1. Override the metadata invoker
     // 2. Retrieve the sample JSON file
 
-    fluid.defaults("floe.zoteroItemsTest", {
-        gradeNames: ["floe.zoteroItems"],
+    fluid.defaults("floe.zotero.zoteroItemsTest", {
+        gradeNames: ["floe.zotero.zoteroItems"],
         zoteroConfig: {
             baseUrl: "../json/items.json",
         },
-        components: {            
+        components: {
             zoteroItemsMetadata: {
                 options: {
                     invokers: {
                         retrieveMetadata: {
-                            funcName: "floe.zoteroItemsTest.retrieveMetadata",
+                            funcName: "floe.zotero.zoteroItemsTest.retrieveMetadata",
                             args: ["{zoteroItems}.options.zoteroConfig", "{that}"]
                         }
                     }
@@ -29,7 +29,7 @@
 
     // Sets total results from the number of items in the file, for
     // testing purposes
-    floe.zoteroItemsTest.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
+    floe.zotero.zoteroItemsTest.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
         var url = zoteroConfig.baseUrl + "?limit=1&format=json&sort=title";
 
         $.ajax({
@@ -43,68 +43,49 @@
         });
     };
 
-    // Basic non-IoC synchronous test
-    jqUnit.test("Test message content", function () {
-        floe.zoteroItemsTest();
-        jqUnit.expect(0);
+    // Basic IoC test structure
 
-        // jqUnit.assertEquals("Test message has expected content", "Hello, world", projectComponent.model.message);
+    fluid.defaults("floe.test.zoteroItemsTester", {
+        gradeNames: ["fluid.test.testCaseHolder"],
+        modules: [{
+            name: "Test the floe.zotero.zoteroItems component.",
+            tests: [{
+                expect: 2,
+                name: "Test zoteroItems component",
+                sequence: [{
+                    listener: "jqUnit.assert",
+                    "event": "{zoteroItemsTest zoteroItems zoteroItemsMetadata}.events.totalResultsRetrieved",
+                    args: ["totalResultsRetrieved event fired"]
+                }, {
+                    listener: "floe.test.zoteroItemsTester.testGenerateLoaderGrade",
+                    "event": "{zoteroItemsTest zoteroItems zoteroItemsLoader}.events.onCreate",
+                    args: ["{zoteroItems}.zoteroItemsLoader"]
+                }]
+            }]
+        }]
     });
 
-    // // Basic non-IoC asyc test
-    // jqUnit.asyncTest("Test message content", function () {
-    //     jqUnit.expect(1);
-    //
-    //     floe.zotero({
-    //         listeners: {
-    //             "onAnnounceComplete.testMessageContent": {
-    //                 "this": "jqUnit",
-    //                 "method": "assertEquals",
-    //                 "args": ["Test message has expected content", "Hello, world", "{that}.model.message"]
-    //             },
-    //             "onAnnounceComplete.testDone": {
-    //                 "this": "jqUnit",
-    //                 "method": "start",
-    //                 "priority": "after:testMessageContent"
-    //             }
-    //         }
-    //     });
-    // });
-    //
-    // // Basic IoC test structure
-    //
-    // fluid.defaults("floe.zoteroTester", {
-    //     gradeNames: ["fluid.test.testCaseHolder"],
-    //     modules: [{
-    //         name: "Test the floe.zotero component.",
-    //         tests: [{
-    //             name: "Test message content and changes.",
-    //             sequence: [{
-    //                 listener: "floe.zoteroTester.testMessageContent",
-    //                 "event": "{projectComponentTest projectComponent}.events.onCreate",
-    //                 args: ["{projectComponent}", "Hello, world"]
-    //             }]
-    //         }]
-    //     }]
-    // });
-    //
-    // fluid.defaults("projectTemplate.tests.projectComponentTest", {
-    //     gradeNames: ["fluid.test.testEnvironment"],
-    //     components: {
-    //         projectComponent: {
-    //             type: "floe.zotero",
-    //             createOnEvent: "{projectComponentTester}.events.onTestCaseStart"
-    //         },
-    //         projectComponentTester: {
-    //             type: "floe.zoteroTester"
-    //         }
-    //     }
-    // });
-    //
-    // floe.zoteroTester.testMessageContent = function (component, expectedMessage) {
-    //     jqUnit.assertEquals("Test message has expected content", expectedMessage, component.model.message);
-    // };
-    //
-    // projectTemplate.tests.projectComponentTest();
+    floe.test.zoteroItemsTester.testGenerateLoaderGrade = function (zoteroItemsLoader) {
+        var resources = zoteroItemsLoader.options.resources;
+        var expectedResources = {
+            "zoteroItems-1": "../json/items.json?format=json&sort=title&limit=50&start=0"
+        };
+        jqUnit.assertDeepEq("Resources options are the ones expected to be generated for the loader grade", expectedResources, resources);
+    };
+
+    fluid.defaults("floe.test.zoteroItemsTest", {
+        gradeNames: ["fluid.test.testEnvironment"],
+        components: {
+            zoteroItems: {
+                type: "floe.zotero.zoteroItemsTest",
+                createOnEvent: "{zoteroItemsTester}.events.onTestCaseStart"
+            },
+            zoteroItemsTester: {
+                type: "floe.test.zoteroItemsTester"
+            }
+        }
+    });
+
+    floe.test.zoteroItemsTest();
 
 })(jQuery, fluid);
