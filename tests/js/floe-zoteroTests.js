@@ -11,7 +11,7 @@
     fluid.defaults("floe.zotero.zoteroItemsTest", {
         gradeNames: ["floe.zotero.zoteroItems"],
         zoteroConfig: {
-            baseUrl: "../json/items.json",
+            baseUrl: "../json/rawItems.json",
         },
         components: {
             zoteroItemsMetadata: {
@@ -50,9 +50,10 @@
         modules: [{
             name: "Test the floe.zotero.zoteroItems component.",
             tests: [{
-                expect: 2,
+                expect: 3,
                 name: "Test zoteroItems component",
-                sequence: [{
+                sequence: [
+                    {
                     listener: "jqUnit.assert",
                     "event": "{zoteroItemsTest zoteroItems zoteroItemsMetadata}.events.totalResultsRetrieved",
                     args: ["totalResultsRetrieved event fired"]
@@ -60,6 +61,11 @@
                     listener: "floe.test.zoteroItemsTester.testGenerateLoaderGrade",
                     "event": "{zoteroItemsTest zoteroItems zoteroItemsLoader}.events.onCreate",
                     args: ["{zoteroItems}.zoteroItemsLoader"]
+                }, {
+                    changeEvent: "{zoteroItems}.zoteroItemsHolder.applier.modelChanged",
+                    "path": "zoteroItems",
+                    listener: "floe.test.zoteroItemsTester.testItemsHolder",
+                    args: ["{zoteroItems}.zoteroItemsHolder", "{zoteroItemsTest}.zoteroItemsTestData.resources.parsedItems.resourceText"]
                 }]
             }]
         }]
@@ -68,9 +74,13 @@
     floe.test.zoteroItemsTester.testGenerateLoaderGrade = function (zoteroItemsLoader) {
         var resources = zoteroItemsLoader.options.resources;
         var expectedResources = {
-            "zoteroItems-1": "../json/items.json?format=json&sort=title&limit=50&start=0"
+            "zoteroItems-1": "../json/rawItems.json?format=json&sort=title&limit=50&start=0"
         };
         jqUnit.assertDeepEq("Resources options are the ones expected to be generated for the loader grade", expectedResources, resources);
+    };
+
+    floe.test.zoteroItemsTester.testItemsHolder = function (zoteroItemsHolder, expectedItems) {
+        jqUnit.assertDeepEq("Parsed resources are as expected (notes have been removed)", JSON.parse(expectedItems), zoteroItemsHolder.model.zoteroItems);
     };
 
     fluid.defaults("floe.test.zoteroItemsTest", {
@@ -81,11 +91,51 @@
                 createOnEvent: "{zoteroItemsTester}.events.onTestCaseStart"
             },
             zoteroItemsTester: {
-                type: "floe.test.zoteroItemsTester"
+                type: "floe.test.zoteroItemsTester",
+            },
+            // Holder for JSON files
+            zoteroItemsTestData: {
+                type: "fluid.component",
+                options: {
+                    members: {
+                        resources: null
+                    }
+                }
             }
         }
     });
 
-    floe.test.zoteroItemsTest();
+    fluid.defaults("floe.test.zoteroItemsTestDataLoader", {
+        gradeNames: ["fluid.resourceLoader"],
+        resources: {
+            rawItems: "../json/rawItems.json",
+            parsedItems: "../json/parsedItems.json"
+        },
+        listeners: {
+            "onResourcesLoaded.runTests": {
+                funcName: "floe.test.zoteroItemsTestDataLoader.runTest",
+                args: ["{that}.resources"]
+            }
+        }
+    });
+
+    floe.test.zoteroItemsTestDataLoader.runTest = function (resources) {
+        console.log(resources);
+        floe.test.zoteroItemsTest({
+            components: {
+                zoteroItemsTestData: {
+                    options: {
+                        members: {
+                            resources: resources
+                        }
+
+                    }
+                }
+            }
+        });
+    };
+
+    floe.test.zoteroItemsTestDataLoader();
+
 
 })(jQuery, fluid);

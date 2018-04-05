@@ -1,0 +1,490 @@
+[
+    {
+        "key": "R9JS5WH2",
+        "version": 23,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/R9JS5WH2",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/R9JS5WH2",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "numChildren": 0
+        },
+        "data": {
+            "key": "R9JS5WH2",
+            "version": 23,
+            "itemType": "webpage",
+            "title": "Design Justice Network",
+            "creators": [],
+            "abstractNote": "\"We are striving to create design practices that center those who stand to be most adversely impacted by design decisions in design processes.\"",
+            "websiteTitle": "Design Justice Network",
+            "websiteType": "",
+            "date": "",
+            "shortTitle": "",
+            "url": "http://designjusticenetwork.org",
+            "accessDate": "",
+            "language": "",
+            "rights": "",
+            "extra": "",
+            "tags": [
+                {
+                    "tag": "anti-oppressive"
+                },
+                {
+                    "tag": "social justice"
+                }
+            ],
+            "collections": [
+                "J5K8SKHT"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-24T23:01:11Z",
+            "dateModified": "2018-01-24T23:01:11Z"
+        }
+    },
+    {
+        "key": "FURJKZB4",
+        "version": 41,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/FURJKZB4",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/FURJKZB4",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "numChildren": 0
+        },
+        "data": {
+            "key": "FURJKZB4",
+            "version": 41,
+            "itemType": "webpage",
+            "title": "Inclusive Learning Design Handbook",
+            "creators": [],
+            "abstractNote": "The Floe Inclusive Learning Design Handbook is a free Open Educational Resource (OER) designed to assist teachers, content creators, Web developers, and others in creating adaptable and personalizable educational resources that can accommodate a diversity of learning styles and individual needs.",
+            "websiteTitle": "Inclusive Learning Design Handbook",
+            "websiteType": "",
+            "date": "",
+            "shortTitle": "",
+            "url": "https://handbook.floeproject.org/",
+            "accessDate": "",
+            "language": "",
+            "rights": "",
+            "extra": "",
+            "tags": [
+                {
+                    "tag": "inclusive design"
+                },
+                {
+                    "tag": "open educational resources"
+                }
+            ],
+            "collections": [
+                "Q2X96EAG"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-24T20:16:20Z",
+            "dateModified": "2018-01-24T20:17:13Z"
+        }
+    },
+    {
+        "key": "VZZI7SJV",
+        "version": 51,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/VZZI7SJV",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/VZZI7SJV",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "parsedDate": "2017-05-31",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "VZZI7SJV",
+            "version": 51,
+            "itemType": "presentation",
+            "title": "Multimodal Design Patterns for Inclusion & Accessibility",
+            "creators": [],
+            "abstractNote": "Alan Harnum (Senior Inclusive Developer, Inclusive Design Research Centre, OCAD University) discusses recent work of the IDRC through the lens of multimodality, and talks about multimodality as a way to approach inclusive design.",
+            "presentationType": "Slide Deck",
+            "date": "2017-05-31",
+            "place": "University of Guelph",
+            "meetingName": "Guelph Accessibility Conference",
+            "url": "https://docs.google.com/presentation/d/1XV_l73ePNlcIy1iEYjUjRIzpIpRIOqGmsGHK9x7k9yc/edit",
+            "accessDate": "",
+            "language": "English",
+            "shortTitle": "",
+            "rights": "",
+            "extra": "Transcript available at http://docs.open.uoguelph.ca/document.aspx?id=6064d30a-8fb1-405a-a6d6-be4e8281e677",
+            "tags": [
+                {
+                    "tag": "inclusive design"
+                },
+                {
+                    "tag": "multimodality"
+                }
+            ],
+            "collections": [
+                "BQ4RRDQJ"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-25T19:26:36Z",
+            "dateModified": "2018-01-25T19:26:36Z"
+        }
+    },
+    {
+        "key": "QSHP9IHD",
+        "version": 46,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/QSHP9IHD",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/QSHP9IHD",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "numChildren": 1
+        },
+        "data": {
+            "key": "QSHP9IHD",
+            "version": 46,
+            "itemType": "webpage",
+            "title": "Social Justice Repair Kit",
+            "creators": [],
+            "abstractNote": "The goal of this project is to help youth movements and social justice initiatives to become welcoming environments for youth with learning differences, and benefit from the advantages of inclusive design.",
+            "websiteTitle": "Social Justice Repair Kit",
+            "websiteType": "",
+            "date": "",
+            "shortTitle": "",
+            "url": "https://sojustrepairit.org/",
+            "accessDate": "",
+            "language": "",
+            "rights": "",
+            "extra": "",
+            "tags": [
+                {
+                    "tag": "inclusive design"
+                },
+                {
+                    "tag": "social justice"
+                }
+            ],
+            "collections": [
+                "J5K8SKHT",
+                "S3ZN4U65"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-25T14:20:53Z",
+            "dateModified": "2018-01-25T14:20:53Z"
+        }
+    },
+    {
+        "key": "EUF5ESQH",
+        "version": 68,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/EUF5ESQH",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/EUF5ESQH",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "numChildren": 5
+        },
+        "data": {
+            "key": "EUF5ESQH",
+            "version": 68,
+            "itemType": "webpage",
+            "title": "The Inclusive Design Guide",
+            "creators": [],
+            "abstractNote": "The Inclusive Design Guide can be applied to digital design as well as to the design of services, the built environment and physical products. It can be applied to processes like workshops, meetings, conferences, and even our daily interactions with one another. It can be used by anyone. The Guide is ever-evolving as we learn more about how to design inclusion into all that we do",
+            "websiteTitle": "The Inclusive Design Guide",
+            "websiteType": "",
+            "date": "",
+            "shortTitle": "",
+            "url": "https://guide.inclusivedesign.ca/",
+            "accessDate": "",
+            "language": "",
+            "rights": "",
+            "extra": "",
+            "tags": [
+                {
+                    "tag": "inclusive design"
+                }
+            ],
+            "collections": [
+                "S3ZN4U65",
+                "Q2X96EAG",
+                "Q4TI82KU"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-24T21:12:01Z",
+            "dateModified": "2018-01-24T21:12:01Z"
+        }
+    },
+    {
+        "key": "NMGT586V",
+        "version": 13,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/NMGT586V",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/NMGT586V",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "numChildren": 0
+        },
+        "data": {
+            "key": "NMGT586V",
+            "version": 13,
+            "itemType": "webpage",
+            "title": "W3C Internationalization (I18n) Activity",
+            "creators": [],
+            "abstractNote": "The W3C Internationalization (I18n) Activity works with W3C working groups and liaises with other organizations to make it possible to use Web technologies with different languages, scripts, and cultures. From this page you can find articles and other resources about Web internationalization, and information about the groups that make up the Activity. Read also about the opportunities to participate and fund work via the new Sponsorship Program.",
+            "websiteTitle": "W3C Internationalization (I18n) Activity",
+            "websiteType": "",
+            "date": "",
+            "shortTitle": "",
+            "url": "https://www.w3.org/International/",
+            "accessDate": "",
+            "language": "",
+            "rights": "",
+            "extra": "",
+            "tags": [
+                {
+                    "tag": "i18n"
+                },
+                {
+                    "tag": "internationalization"
+                },
+                {
+                    "tag": "multilingual"
+                }
+            ],
+            "collections": [
+                "5CQ6ZNRS"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-24T21:57:26Z",
+            "dateModified": "2018-01-24T21:58:01Z"
+        }
+    },
+    {
+        "key": "F5TVAPIZ",
+        "version": 20,
+        "library": {
+            "type": "group",
+            "id": 2086760,
+            "name": "Inclusive Design",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/2086760/items/F5TVAPIZ",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/inclusive_design/items/F5TVAPIZ",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 4080880,
+                "username": "waharnum",
+                "name": "Alan Harnum",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/waharnum",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "numChildren": 0
+        },
+        "data": {
+            "key": "F5TVAPIZ",
+            "version": 20,
+            "itemType": "webpage",
+            "title": "W3C Web Accessibility Initiative (WAI)",
+            "creators": [],
+            "abstractNote": "Strategies, guidelines, resources to make the Web accessible to people with disabilities",
+            "websiteTitle": "W3C Web Accessibility Initiative (WAI)",
+            "websiteType": "",
+            "date": "",
+            "shortTitle": "",
+            "url": "https://www.w3.org/WAI/",
+            "accessDate": "",
+            "language": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "D2F53F7F"
+            ],
+            "relations": {},
+            "dateAdded": "2018-01-24T22:02:18Z",
+            "dateModified": "2018-01-24T22:03:02Z"
+        }
+    }
+]
