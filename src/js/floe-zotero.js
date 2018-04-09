@@ -41,7 +41,7 @@
                     listeners: {
                         "{zoteroItemsLoader}.events.onResourcesLoaded": {
                             funcName: "floe.zotero.zoteroItemsParser.parse",
-                            args: ["{zoteroItemsLoader}.resources", "{zoteroItemsHolder}.applier", "zoteroItems"]
+                            args: ["{zoteroItemsLoader}.resources", "{zoteroItemsHolder}.applier", "zoteroItems", "zoteroItemNotes"]
                         }
                     }
                 }
@@ -51,13 +51,18 @@
                 options: {
                     model: {
                         zoteroItems: null,
-                        zoteroItemNotes: null
+                        notesHolder: null
                     },
                     modelListeners: {
                         "zoteroItems": {
                             "this": "console",
                             method: "log",
                             args: "{that}.model.zoteroItems"
+                        },
+                        "zoteroItemNotes": {
+                            "this": "console",
+                            method: "log",
+                            args: "{that}.model.zoteroItemNotes"
                         }
                     }
                 }
@@ -129,7 +134,7 @@
         gradeNames: ["fluid.component"]
     });
 
-    floe.zotero.zoteroItemsParser.parse = function (zoteroItemResources, holderApplier, holderEndpoint) {
+    floe.zotero.zoteroItemsParser.parse = function (zoteroItemResources, holderApplier, itemsEndpoint, notesEndpoint) {
         var zoteroItems = [];
 
         fluid.each(zoteroItemResources, function (zoteroItemResource) {
@@ -139,21 +144,27 @@
             zoteroItems = zoteroItems.concat(parsedResource);
         });
 
-        var zoteroItemNotes = [];
+        var notesHolder = [];
 
         // Remove the note items to a separate array
         fluid.remove_if(zoteroItems, function (zoteroItem) {
                 if(zoteroItem.data.itemType === "note") {
                     return true;
                 }
-        }, zoteroItemNotes);
+        }, notesHolder);
 
-        // Construct a keyed notes object
+        // Construct separate notes object, keyed by parentItem
 
+        var zoteroItemNotes = {};
 
-        console.log(zoteroItemNotes);
+        fluid.each(notesHolder, function (zoteroItemNote) {
+            var parentItemKey = zoteroItemNote.data.parentItem;
+            zoteroItemNotes[parentItemKey] = zoteroItemNotes[parentItemKey] ? zoteroItemNotes[parentItemKey] : {};
+            zoteroItemNotes[parentItemKey][zoteroItemNote.data.key] = zoteroItemNote;
+        });
 
-        holderApplier.change(holderEndpoint, zoteroItems);
+        holderApplier.change(itemsEndpoint, zoteroItems);
+        holderApplier.change(notesEndpoint, zoteroItemNotes);
 
     };
 
