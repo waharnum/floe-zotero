@@ -47,11 +47,25 @@
         <script>
             $(document).ready(function () {
                 var allZoteroItems = floe.zotero.zoteroItems({
-                    listeners: {
-                        
+                    components: {
+                        zoteroItemsHolder: {
+                            options: {
+                                listeners: {
+                                    "onHolderReady.renderItems": {
+                                        funcName: "floe.zotero.zoteroItems.renderItems",
+                                        args: ["{that}"]
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
             });
+
+            floe.zotero.zoteroItems.renderItems = function (zoteroItemsHolder) {
+                console.log(zoteroItemsHolder);
+            }
+
         </script>
 
     </body>

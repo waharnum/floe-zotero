@@ -54,7 +54,7 @@
                     },
                     model: {
                         zoteroItems: null,
-                        notesHolder: null
+                        zoteroItemNotes: null
                     },
                     modelListeners: {
                         "zoteroItems": {
