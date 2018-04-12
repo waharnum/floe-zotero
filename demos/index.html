@@ -72,10 +72,11 @@
             floe.zotero.zoteroItems.renderItems = function (zoteroItemsHolder) {
                 var container = $(".resource-container-all");
                 fluid.each(zoteroItemsHolder.model.zoteroItems, function (zoteroItem) {
-                    var template = "<h2>%title</h2><p>%description</p>"
+                    var template = "<h2>%title</h2><p><a href='%url'>%url</a><br/>%description</p>"
                     var rendered = fluid.stringTemplate(template, {
                         title: zoteroItem.data.title,
-                        description: zoteroItem.data.abstractNote
+                        description: zoteroItem.data.abstractNote,
+                        url: zoteroItem.data.url
                     })
                     container.append(rendered);
                 });
