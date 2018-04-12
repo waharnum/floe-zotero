@@ -46,6 +46,13 @@
 
         <script>
             $(document).ready(function () {
+
+                $(".resource-category").click(function (e) {
+                  $(this).toggleClass("closed");
+                  $(this).toggleClass("open");
+                  $(this).next(".resource-container").toggleClass("collapsed");
+                });
+
                 var allZoteroItems = floe.zotero.zoteroItems({
                     components: {
                         zoteroItemsHolder: {
@@ -63,7 +70,15 @@
             });
 
             floe.zotero.zoteroItems.renderItems = function (zoteroItemsHolder) {
-                console.log(zoteroItemsHolder);
+                var container = $(".resource-container-all");
+                fluid.each(zoteroItemsHolder.model.zoteroItems, function (zoteroItem) {
+                    var template = "<h2>%title</h2><p>%description</p>"
+                    var rendered = fluid.stringTemplate(template, {
+                        title: zoteroItem.data.title,
+                        description: zoteroItem.data.abstractNote
+                    })
+                    container.append(rendered);
+                });
             }
 
         </script>
