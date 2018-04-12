@@ -50,7 +50,7 @@
         modules: [{
             name: "Test the floe.zotero.zoteroItems component.",
             tests: [{
-                expect: 3,
+                expect: 4,
                 name: "Test zoteroItems component",
                 sequence: [
                     {
@@ -64,8 +64,13 @@
                     }, {
                         changeEvent: "{zoteroItems}.zoteroItemsHolder.applier.modelChanged",
                         "path": "zoteroItems",
-                        listener: "floe.test.zoteroItemsTester.testItemsHolder",
-                        args: ["{zoteroItems}.zoteroItemsHolder", "{zoteroItemsTest}.zoteroItemsTestData.options.resources.parsedItems.resourceText"]
+                        listener: "floe.test.zoteroItemsTester.testHolderModelPoint",
+                        args: ["{zoteroItems}.zoteroItemsHolder", "zoteroItems", "{zoteroItemsTest}.zoteroItemsTestData.options.resources.parsedItems.resourceText"]
+                    }, {
+                        changeEvent: "{zoteroItems}.zoteroItemsHolder.applier.modelChanged",
+                        "path": "zoteroItemNotes",
+                        listener: "floe.test.zoteroItemsTester.testHolderModelPoint",
+                        args: ["{zoteroItems}.zoteroItemsHolder", "zoteroItemNotes", "{zoteroItemsTest}.zoteroItemsTestData.options.resources.notes.resourceText"]
                     }]
             }]
         }]
@@ -79,8 +84,8 @@
         jqUnit.assertDeepEq("Resources options are the ones expected to be generated for the loader grade", expectedResources, resources);
     };
 
-    floe.test.zoteroItemsTester.testItemsHolder = function (zoteroItemsHolder, expectedItems) {
-        jqUnit.assertDeepEq("Parsed resources are as expected (notes have been removed)", JSON.parse(expectedItems), zoteroItemsHolder.model.zoteroItems);
+    floe.test.zoteroItemsTester.testHolderModelPoint = function (zoteroItemsHolder, modelPath, expectedContent) {
+        jqUnit.assertDeepEq("Parsed resources are as expected (notes have been removed)", JSON.parse(expectedContent), zoteroItemsHolder.model[modelPath]);
     };
 
     fluid.defaults("floe.test.zoteroItemsTest", {
