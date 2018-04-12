@@ -50,7 +50,7 @@
         modules: [{
             name: "Test the floe.zotero.zoteroItems component.",
             tests: [{
-                expect: 4,
+                expect: 5,
                 name: "Test zoteroItems component",
                 sequence: [
                     {
@@ -71,6 +71,10 @@
                         "path": "zoteroItemNotes",
                         listener: "floe.test.zoteroItemsTester.testHolderModelPoint",
                         args: ["{zoteroItems}.zoteroItemsHolder", "zoteroItemNotes", "{zoteroItemsTest}.zoteroItemsTestData.options.resources.notes.resourceText"]
+                    }, {
+                        listener: "jqUnit.assert",
+                        "event": "{zoteroItems}.zoteroItemsHolder.events.onHolderReady",
+                        args: ["onHolderReady event fired"]
                     }]
             }]
         }]

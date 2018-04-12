@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <script src="../node_modules/infusion/dist/infusion-all.js"></script>
+
+        <script src="../src/js/floe-zotero.js"></script>
+
+        <title>floe.zotero - Demo</title>
+        <style>
+        .resource-category.closed::after {
+          content: " \25B6";
+          color: #00F;
+        }
+
+        .resource-category.open::after {
+          content: " \25BC";
+          color: #00F;
+        }
+
+        .collapsed {
+          display: none;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>Fast Demonstration of Pulling Resources From Zotero</h1>
+        <p><em>Note:</em> Zotero's API does not require authentication for publicly-available data.</p>
+        <p><a href="https://www.zotero.org/support/dev/web_api/v3/basics">Zotero API Basics (Read)</a></p>
+
+        <p><a href="https://www.zotero.org/groups/2086760/inclusive_design?">Inclusive Design Zotero Group</a></p>
+
+        <hr />
+        <h2 class="resource-category closed">All Resources</h2>
+        <div class="resource-container resource-container-all collapsed">
+
+        </div>
+
+        <h2 class="resource-category closed">FLOE Resources</h2>
+        <div class="resource-container resource-container-floe collapsed">
+
+        </div>
+
+        <h2 class="resource-category closed">SJRK Resources</h2>
+        <div class="resource-container resource-container-sjrk collapsed">
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                var allZoteroItems = floe.zotero.zoteroItems({
+                    listeners: {
+                        
+                    }
+                });
+            });
+        </script>
+
+    </body>
+</html>

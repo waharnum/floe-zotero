@@ -40,8 +40,8 @@
                 options: {
                     listeners: {
                         "{zoteroItemsLoader}.events.onResourcesLoaded": {
-                            funcName: "floe.zotero.zoteroItemsParser.parse",
-                            args: ["{zoteroItemsLoader}.resources", "{zoteroItemsHolder}.applier", "zoteroItems", "zoteroItemNotes"]
+                            funcName: "floe.zotero.zoteroItemsParser.parseAndStore",
+                            args: ["{zoteroItemsLoader}.resources", "{zoteroItemsHolder}.applier", "{zoteroItemsHolder}.events.onHolderReady", "zoteroItems", "zoteroItemNotes"]
                         }
                     }
                 }
@@ -49,6 +49,9 @@
             zoteroItemsHolder: {
                 type: "fluid.modelComponent",
                 options: {
+                    events: {
+                        onHolderReady: null
+                    },
                     model: {
                         zoteroItems: null,
                         notesHolder: null
@@ -134,7 +137,7 @@
         gradeNames: ["fluid.component"]
     });
 
-    floe.zotero.zoteroItemsParser.parse = function (zoteroItemResources, holderApplier, itemsEndpoint, notesEndpoint) {
+    floe.zotero.zoteroItemsParser.parseAndStore = function (zoteroItemResources, holderApplier, readyEvent, itemsEndpoint, notesEndpoint) {
         var zoteroItems = [];
 
         fluid.each(zoteroItemResources, function (zoteroItemResource) {
@@ -159,13 +162,39 @@
 
         fluid.each(notesHolder, function (zoteroItemNote) {
             var parentItemKey = zoteroItemNote.data.parentItem;
-            zoteroItemNotes[parentItemKey] = zoteroItemNotes[parentItemKey] ? zoteroItemNotes[parentItemKey] : {};
-            zoteroItemNotes[parentItemKey][zoteroItemNote.data.key] = zoteroItemNote;
+            zoteroItemNotes[parentItemKey] = zoteroItemNotes[parentItemKey] ? zoteroItemNotes[parentItemKey] : {"contextNotes": {}, "rawNotes": {}};
+
+            var noteContext = floe.zotero.zoteroItemsParser.getNoteContext(zoteroItemNote.data.note);
+
+            zoteroItemNotes[parentItemKey].contextNotes[noteContext.contextKey] = noteContext.contextNote;
+
+            zoteroItemNotes[parentItemKey].rawNotes[zoteroItemNote.data.key] = zoteroItemNote;
         });
 
         holderApplier.change(itemsEndpoint, zoteroItems);
         holderApplier.change(notesEndpoint, zoteroItemNotes);
+        readyEvent.fire();
 
+    };
+
+    // Extracts the "context" from a note, with the assumption that the note
+    // content is formatted like this: "<p>SJRK: This is an SJRK-context note.</p>"
+    // Returns the following structure:
+    // {
+    //  contextKey: "SJRK",
+    //  contextNote: "This is an SJRK-context note."
+    // }
+
+    floe.zotero.zoteroItemsParser.getNoteContext = function (noteContent) {
+
+        // Remove any HTML around the content
+        var noteText = $(noteContent).text();
+
+        var noteContext = {
+            contextKey: noteText.split(":")[0].trim(),
+            contextNote: noteText.split(":")[1].trim()
+        };
+        return noteContext;
     };
 
 })(jQuery, fluid);
