@@ -11,7 +11,7 @@
     fluid.defaults("floe.zotero.zoteroItemsTest", {
         gradeNames: ["floe.zotero.zoteroItems"],
         zoteroConfig: {
-            baseUrl: "../json/rawItems.json",
+            baseUrl: "../json/rawItems.json"
         },
         components: {
             zoteroItemsMetadata: {
@@ -35,7 +35,7 @@
         $.ajax({
             url: url
         })
-        .done(function (data, textStatus, jqXHR) {
+        .done(function (data) {
             var itemsAsArray = fluid.hashToArray(data);
             var totalResults = itemsAsArray.length;
             zoteroItemsMetadata.totalResults = totalResults;
@@ -54,19 +54,19 @@
                 name: "Test zoteroItems component",
                 sequence: [
                     {
-                    listener: "jqUnit.assert",
-                    "event": "{zoteroItemsTest zoteroItems zoteroItemsMetadata}.events.totalResultsRetrieved",
-                    args: ["totalResultsRetrieved event fired"]
-                }, {
-                    listener: "floe.test.zoteroItemsTester.testGenerateLoaderGrade",
-                    "event": "{zoteroItemsTest zoteroItems zoteroItemsLoader}.events.onCreate",
-                    args: ["{zoteroItems}.zoteroItemsLoader"]
-                }, {
-                    changeEvent: "{zoteroItems}.zoteroItemsHolder.applier.modelChanged",
-                    "path": "zoteroItems",
-                    listener: "floe.test.zoteroItemsTester.testItemsHolder",
-                    args: ["{zoteroItems}.zoteroItemsHolder", "{zoteroItemsTest}.zoteroItemsTestData.resources.parsedItems.resourceText"]
-                }]
+                        listener: "jqUnit.assert",
+                        "event": "{zoteroItemsTest zoteroItems zoteroItemsMetadata}.events.totalResultsRetrieved",
+                        args: ["totalResultsRetrieved event fired"]
+                    }, {
+                        listener: "floe.test.zoteroItemsTester.testGenerateLoaderGrade",
+                        "event": "{zoteroItemsTest zoteroItems zoteroItemsLoader}.events.onCreate",
+                        args: ["{zoteroItems}.zoteroItemsLoader"]
+                    }, {
+                        changeEvent: "{zoteroItems}.zoteroItemsHolder.applier.modelChanged",
+                        "path": "zoteroItems",
+                        listener: "floe.test.zoteroItemsTester.testItemsHolder",
+                        args: ["{zoteroItems}.zoteroItemsHolder", "{zoteroItemsTest}.zoteroItemsTestData.options.resources.parsedItems.resourceText"]
+                    }]
             }]
         }]
     });
@@ -91,15 +91,18 @@
                 createOnEvent: "{zoteroItemsTester}.events.onTestCaseStart"
             },
             zoteroItemsTester: {
-                type: "floe.test.zoteroItemsTester",
+                type: "floe.test.zoteroItemsTester"
             },
-            // Holder for JSON files
+            // Holder for JSON files loaded as resources
             zoteroItemsTestData: {
                 type: "fluid.component",
                 options: {
-                    members: {
-                        resources: null
-                    }
+                    // Necessary because otherwise a JSON object .resourcetext
+                    // may get interpreted as an IoC reference
+                    mergePolicy: {
+                        "resources": "noexpand"
+                    },
+                    resources: null
                 }
             }
         }
@@ -109,7 +112,8 @@
         gradeNames: ["fluid.resourceLoader"],
         resources: {
             rawItems: "../json/rawItems.json",
-            parsedItems: "../json/parsedItems.json"
+            parsedItems: "../json/parsedItems.json",
+            notes: "../json/notes.json"
         },
         listeners: {
             "onResourcesLoaded.runTests": {
@@ -120,15 +124,11 @@
     });
 
     floe.test.zoteroItemsTestDataLoader.runTest = function (resources) {
-        console.log(resources);
         floe.test.zoteroItemsTest({
             components: {
                 zoteroItemsTestData: {
                     options: {
-                        members: {
-                            resources: resources
-                        }
-
+                        resources: resources
                     }
                 }
             }

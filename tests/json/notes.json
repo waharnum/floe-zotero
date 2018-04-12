@@ -1,0 +1,110 @@
+{
+    "EUF5ESQH": {
+        "QTDN3DB8": {
+            "key": "QTDN3DB8",
+            "version": 66,
+            "library": {
+                "type": "group",
+                "id": 2086760,
+                "name": "Inclusive Design",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/groups/inclusive_design",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "links": {
+                "self": {
+                    "href": "https://api.zotero.org/groups/2086760/items/QTDN3DB8",
+                    "type": "application/json"
+                },
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/inclusive_design/items/QTDN3DB8",
+                    "type": "text/html"
+                },
+                "up": {
+                    "href": "https://api.zotero.org/groups/2086760/items/EUF5ESQH",
+                    "type": "application/json"
+                }
+            },
+            "meta": {
+                "createdByUser": {
+                    "id": 4080880,
+                    "username": "waharnum",
+                    "name": "Alan Harnum",
+                    "links": {
+                        "alternate": {
+                            "href": "https://www.zotero.org/waharnum",
+                            "type": "text/html"
+                        }
+                    }
+                }
+            },
+            "data": {
+                "key": "QTDN3DB8",
+                "version": 66,
+                "parentItem": "EUF5ESQH",
+                "itemType": "note",
+                "note": "<p>SJRK: This would be an SJRK-contextualized description for this resource.</p>",
+                "tags": [],
+                "relations": {},
+                "dateAdded": "2018-03-01T17:03:44Z",
+                "dateModified": "2018-03-29T16:31:06Z"
+            }
+        },
+        "VNQZHHK2": {
+                "key": "VNQZHHK2",
+                "version": 65,
+                "library": {
+                    "type": "group",
+                    "id": 2086760,
+                    "name": "Inclusive Design",
+                    "links": {
+                        "alternate": {
+                            "href": "https://www.zotero.org/groups/inclusive_design",
+                            "type": "text/html"
+                        }
+                    }
+                },
+                "links": {
+                    "self": {
+                        "href": "https://api.zotero.org/groups/2086760/items/VNQZHHK2",
+                        "type": "application/json"
+                    },
+                    "alternate": {
+                        "href": "https://www.zotero.org/groups/inclusive_design/items/VNQZHHK2",
+                        "type": "text/html"
+                    },
+                    "up": {
+                        "href": "https://api.zotero.org/groups/2086760/items/EUF5ESQH",
+                        "type": "application/json"
+                    }
+                },
+                "meta": {
+                    "createdByUser": {
+                        "id": 4080880,
+                        "username": "waharnum",
+                        "name": "Alan Harnum",
+                        "links": {
+                            "alternate": {
+                                "href": "https://www.zotero.org/waharnum",
+                                "type": "text/html"
+                            }
+                        }
+                    }
+                },
+                "data": {
+                    "key": "VNQZHHK2",
+                    "version": 65,
+                    "parentItem": "EUF5ESQH",
+                    "itemType": "note",
+                    "note": "<p>FLOE: This would be a FLOE-contextualized description for this resource.</p>",
+                    "tags": [],
+                    "relations": {},
+                    "dateAdded": "2018-03-01T17:03:44Z",
+                    "dateModified": "2018-03-29T16:30:51Z"
+                }
+        }
+    }
+}

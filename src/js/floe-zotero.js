@@ -16,7 +16,7 @@
                 options: {
                     listeners: {
                         "onCreate.retrieveMetadata": {
-                            func: "{that}.retrieveMetadata",
+                            func: "{that}.retrieveMetadata"
                         }
                     }
                 }
@@ -148,9 +148,9 @@
 
         // Remove the note items to a separate array
         fluid.remove_if(zoteroItems, function (zoteroItem) {
-                if(zoteroItem.data.itemType === "note") {
-                    return true;
-                }
+            if (zoteroItem.data.itemType === "note") {
+                return true;
+            }
         }, notesHolder);
 
         // Construct separate notes object, keyed by parentItem
