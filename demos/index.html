@@ -53,29 +53,66 @@
                   $(this).next(".resource-container").toggleClass("collapsed");
                 });
 
-                var allZoteroItems = floe.zotero.zoteroItems({
-                    components: {
-                        zoteroItemsHolder: {
-                            options: {
-                                listeners: {
-                                    "onHolderReady.renderItems": {
-                                        funcName: "floe.zotero.zoteroItems.renderItems",
-                                        args: ["{that}"]
-                                    }
+            fluid.defaults("floe.zotero.zoteroItems.displayDemo", {
+                gradeNames: ["floe.zotero.zoteroItems"],
+                resourceContainerSelector: ".resource-container-all",
+                resourceContext: null,
+                components: {
+                    zoteroItemsHolder: {
+                        options: {
+                            listeners: {
+                                "onHolderReady.renderItems": {
+                                    funcName: "floe.zotero.zoteroItems.renderItems",
+                                    args: ["{that}", "{displayDemo}.options.resourceContainerSelector", "{displayDemo}.options.resourceContext"]
                                 }
                             }
                         }
                     }
-                });
+                }
             });
 
-            floe.zotero.zoteroItems.renderItems = function (zoteroItemsHolder) {
-                var container = $(".resource-container-all");
+            var allZoteroItems = floe.zotero.zoteroItems.displayDemo();
+
+
+            var floeZoteroItems = floe.zotero.zoteroItems.displayDemo({
+                resourceContainerSelector: ".resource-container-sjrk",
+                resourceContext: "SJRK",
+                zoteroConfig: {
+                    baseUrl: "https://api.zotero.org/groups/2086760/collections/Q2X96EAG/items/"
+                }
+            });
+
+            var sjrkZoteroItems = floe.zotero.zoteroItems.displayDemo({
+                resourceContainerSelector: ".resource-container-floe",
+                resourceContext: "FLOE",
+                zoteroConfig: {
+                    baseUrl: "https://api.zotero.org/groups/2086760/collections/S3ZN4U65/items/",
+                    limit: 50
+                }
+            });
+
+        });
+
+            floe.zotero.zoteroItems.renderItems = function (zoteroItemsHolder, resourceContainerSelector, resourceContext) {
+                var container = $(resourceContainerSelector);
+
+                var notes = zoteroItemsHolder.model.zoteroItemNotes;
+
                 fluid.each(zoteroItemsHolder.model.zoteroItems, function (zoteroItem) {
-                    var template = "<h2>%title</h2><p><a href='%url'>%url</a><br/>%description</p>"
+                    var template = "<h3>%title - <a href='%url'>%url</a> </h3><p>%description</p>"
+
+                    // default description
+                    var description = zoteroItem.data.abstractNote;
+
+                    // check for resource-context specific one
+                    if (resourceContext) {
+                        var resourceContextDescription = fluid.get(notes, [zoteroItem.data.key, "contextNotes", resourceContext]);
+                        description = resourceContextDescription ? resourceContextDescription : description;
+                    }
+
                     var rendered = fluid.stringTemplate(template, {
                         title: zoteroItem.data.title,
-                        description: zoteroItem.data.abstractNote,
+                        description: description,
                         url: zoteroItem.data.url
                     })
                     container.append(rendered);
