@@ -7,7 +7,10 @@
     fluid.defaults("floe.zotero.zoteroItems", {
         gradeNames: ["fluid.component"],
         zoteroConfig: {
-            baseUrl: "https://api.zotero.org/groups/2086760/items/",
+            // This should be a Zotero API endpoint that returns items,
+            // such as this one:
+            // baseUrl: "https://api.zotero.org/groups/2086760/items/"
+            baseURL: "",
             limit: 50
         },
         components: {
@@ -55,23 +58,8 @@
                     model: {
                         zoteroItems: null,
                         zoteroItemNotes: null
-                    },
-                    modelListeners: {
-                        "zoteroItems": {
-                            "this": "console",
-                            method: "log",
-                            args: "{that}.model.zoteroItems"
-                        },
-                        "zoteroItemNotes": {
-                            "this": "console",
-                            method: "log",
-                            args: "{that}.model.zoteroItemNotes"
-                        }
                     }
                 }
-            },
-            zoteroItemsPresenter: {
-                type: "fluid.component"
             }
         }
 

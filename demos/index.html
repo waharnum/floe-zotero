@@ -4,6 +4,8 @@
 
         <script src="../src/js/floe-zotero.js"></script>
 
+        <script src="src/js/demo.js"></script>
+
         <title>floe.zotero - Demo</title>
         <style>
         .resource-category.closed::after {
@@ -53,26 +55,11 @@
                   $(this).next(".resource-container").toggleClass("collapsed");
                 });
 
-            fluid.defaults("floe.zotero.zoteroItems.displayDemo", {
-                gradeNames: ["floe.zotero.zoteroItems"],
-                resourceContainerSelector: ".resource-container-all",
-                resourceContext: null,
-                components: {
-                    zoteroItemsHolder: {
-                        options: {
-                            listeners: {
-                                "onHolderReady.renderItems": {
-                                    funcName: "floe.zotero.zoteroItems.renderItems",
-                                    args: ["{that}", "{displayDemo}.options.resourceContainerSelector", "{displayDemo}.options.resourceContext"]
-                                }
-                            }
-                        }
-                    }
+            var allZoteroItems = floe.zotero.zoteroItems.displayDemo({
+                zoteroConfig: {
+                    baseUrl: "https://api.zotero.org/groups/2086760/items/"
                 }
             });
-
-            var allZoteroItems = floe.zotero.zoteroItems.displayDemo();
-
 
             var floeZoteroItems = floe.zotero.zoteroItems.displayDemo({
                 resourceContainerSelector: ".resource-container-sjrk",
@@ -92,32 +79,6 @@
             });
 
         });
-
-            floe.zotero.zoteroItems.renderItems = function (zoteroItemsHolder, resourceContainerSelector, resourceContext) {
-                var container = $(resourceContainerSelector);
-
-                var notes = zoteroItemsHolder.model.zoteroItemNotes;
-
-                fluid.each(zoteroItemsHolder.model.zoteroItems, function (zoteroItem) {
-                    var template = "<h3>%title - <a href='%url'>%url</a> </h3><p>%description</p>"
-
-                    // default description
-                    var description = zoteroItem.data.abstractNote;
-
-                    // check for resource-context specific one
-                    if (resourceContext) {
-                        var resourceContextDescription = fluid.get(notes, [zoteroItem.data.key, "contextNotes", resourceContext]);
-                        description = resourceContextDescription ? resourceContextDescription : description;
-                    }
-
-                    var rendered = fluid.stringTemplate(template, {
-                        title: zoteroItem.data.title,
-                        description: description,
-                        url: zoteroItem.data.url
-                    })
-                    container.append(rendered);
-                });
-            }
 
         </script>
 
