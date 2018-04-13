@@ -11,7 +11,7 @@
     fluid.defaults("floe.zotero.zoteroItemsTest", {
         gradeNames: ["floe.zotero.zoteroItems"],
         zoteroConfig: {
-            baseUrl: "../json/rawItems.json"
+            baseURL: "../json/rawItems.json"
         },
         components: {
             zoteroItemsMetadata: {
@@ -30,7 +30,7 @@
     // Sets total results from the number of items in the file, for
     // testing purposes
     floe.zotero.zoteroItemsTest.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
-        var url = zoteroConfig.baseUrl + "?limit=1&format=json&sort=title";
+        var url = zoteroConfig.baseURL + "?limit=1&format=json&sort=title";
 
         $.ajax({
             url: url

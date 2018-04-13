@@ -9,7 +9,7 @@
         zoteroConfig: {
             // This should be a Zotero API endpoint that returns items,
             // such as this one:
-            // baseUrl: "https://api.zotero.org/groups/2086760/items/"
+            // baseURL: "https://api.zotero.org/groups/2086760/items/"
             baseURL: "",
             limit: 50
         },
@@ -32,7 +32,7 @@
                     invokers: {
                         generateLoaderGrade: {
                             funcName: "floe.zotero.zoteroItems.generateLoaderGrade",
-                            args: ["{zoteroItemsMetadata}.totalResults", "{zoteroItems}.options.zoteroConfig"]
+                            args: ["{zoteroItemsMetadata}.totalResults", "{zoteroItems}.options.zoteroConfig.baseURL", "{zoteroItems}.options.zoteroConfig.limit"]
                         }
                     }
                 }
@@ -65,11 +65,9 @@
 
     });
 
-    floe.zotero.zoteroItems.generateLoaderGrade = function (totalResults, zoteroConfig) {
+    floe.zotero.zoteroItems.generateLoaderGrade = function (totalResults, baseZoteroURL, limit) {
 
         var gradeName = "floe.zotero.loaderGrade-" + fluid.allocateGuid();
-
-        var limit = zoteroConfig.limit;
 
         var totalPages = Math.ceil(totalResults / limit);
 
@@ -79,7 +77,7 @@
         for (var i = 1; i <= totalPages; i++) {
             var start = (i * limit) - limit;
             var key = "zoteroItems-" + i;
-            var url = fluid.stringTemplate(zoteroConfig.baseUrl + "?format=json&sort=title&limit=%limit&start=%start", {start: start, limit: limit});
+            var url = fluid.stringTemplate(baseZoteroURL + "?format=json&sort=title&limit=%limit&start=%start", {start: start, limit: limit});
             resourceDefs[key] = url;
         }
 
@@ -101,13 +99,13 @@
         invokers: {
             retrieveMetadata: {
                 funcName: "floe.zotero.zoteroItemsMetadata.retrieveMetadata",
-                args: ["{zoteroItems}.options.zoteroConfig", "{that}"]
+                args: ["{zoteroItems}.options.zoteroConfig.baseURL", "{that}"]
             }
         }
     });
 
-    floe.zotero.zoteroItemsMetadata.retrieveMetadata = function (zoteroConfig, zoteroItemsMetadata) {
-        var url = zoteroConfig.baseUrl + "?limit=1&format=json&sort=title";
+    floe.zotero.zoteroItemsMetadata.retrieveMetadata = function (baseZoteroURL, zoteroItemsMetadata) {
+        var url = baseZoteroURL + "?limit=1&format=json&sort=title";
 
         $.ajax({
             url: url
@@ -152,7 +150,9 @@
 
             var noteContext = floe.zotero.zoteroItemsParser.getNoteContext(zoteroItemNote.data.note);
 
-            zoteroItemNotes[parentItemKey].contextNotes[noteContext.contextKey] = noteContext.contextNote;
+            if (noteContext) {
+                zoteroItemNotes[parentItemKey].contextNotes[noteContext.contextKey] = noteContext.contextNote;
+            }
 
             zoteroItemNotes[parentItemKey].rawNotes[zoteroItemNote.data.key] = zoteroItemNote;
         });
@@ -165,11 +165,13 @@
 
     // Extracts the "context" from a note, with the assumption that the note
     // content is formatted like this: "<p>SJRK: This is an SJRK-context note.</p>"
-    // Returns the following structure:
+    // Returns the following structure if the note is successfully // parsed:
     // {
     //  contextKey: "SJRK",
     //  contextNote: "This is an SJRK-context note."
     // }
+    // TODO: implement this
+    // Returns null if the note cannot be parsed
 
     floe.zotero.zoteroItemsParser.getNoteContext = function (noteContent) {
 
