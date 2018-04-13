@@ -65,7 +65,6 @@
 
     });
 
-
     floe.zotero.zoteroItems.generateLoaderGrade = function (totalResults, zoteroConfig) {
 
         var gradeName = "floe.zotero.loaderGrade-" + fluid.allocateGuid();
@@ -85,7 +84,6 @@
         }
 
         fluid.defaults(gradeName, {
-            gradeNames: ["fluid.component"],
             resources: resourceDefs
         });
 
